@@ -156,7 +156,7 @@ class EMListenerMux implements ExoPlayerListener, MediaPlayer.OnPreparedListener
 
     @Override
     public void onVideoSizeChanged(int width, int height, int unAppliedRotationDegrees, float pixelWidthHeightRatio) {
-        muxNotifier.onVideoSizeChanged(width, height, pixelWidthHeightRatio);
+        muxNotifier.onVideoSizeChanged(width, height, unAppliedRotationDegrees, pixelWidthHeightRatio);
 
         for (ExoPlayerListener listener : exoPlayerListeners) {
             listener.onVideoSizeChanged(width, height, unAppliedRotationDegrees, pixelWidthHeightRatio);
@@ -317,7 +317,7 @@ class EMListenerMux implements ExoPlayerListener, MediaPlayer.OnPreparedListener
             //Purposefully left blank
         }
 
-        public void onVideoSizeChanged(int width, int height, float pixelWidthHeightRatio) {
+        public void onVideoSizeChanged(int width, int height, int unAppliedRotationDegrees, float pixelWidthHeightRatio) {
             //Purposefully left blank
         }
 

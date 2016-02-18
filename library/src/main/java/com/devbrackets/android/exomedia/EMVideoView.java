@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -29,6 +30,7 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -1168,6 +1170,9 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
     }
 
     private class MuxNotifier extends EMListenerMux.EMListenerMuxNotifier {
+        public static final int ROTATION_90 = 90;
+        public static final int ROTATION_270 = 270;
+
         @Override
         public boolean shouldNotifyCompletion(long endLeeway) {
             return getCurrentPosition() + endLeeway >= getDuration();
@@ -1186,7 +1191,21 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
         }
 
         @Override
-        public void onVideoSizeChanged(int width, int height, float pixelWidthHeightRatio) {
+        @SuppressWarnings("SuspiciousNameCombination")
+        public void onVideoSizeChanged(int width, int height, int unAppliedRotationDegrees, float pixelWidthHeightRatio) {
+            //Applies the rotation when necessary (Lollipop+ will never be unApplied)
+           if (unAppliedRotationDegrees != 0) {
+               applyRotationTransformation(width, height, unAppliedRotationDegrees);
+           }
+
+            //If we applied a rotation make sure to update the width, height, and ratio
+            if (unAppliedRotationDegrees == ROTATION_90 || unAppliedRotationDegrees == ROTATION_270) {
+                int rotatedHeight = height;
+                height = width;
+                width = rotatedHeight;
+                pixelWidthHeightRatio = 1 / pixelWidthHeightRatio;
+            }
+
             //Makes sure we have the correct aspect ratio
             float videoAspectRatio = height == 0 ? 1 : (width * pixelWidthHeightRatio) / height;
             exoVideoTextureView.setAspectRatio(videoAspectRatio);
@@ -1243,6 +1262,21 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
             if (shutterRight != null) {
                 shutterRight.getLayoutParams().width = shutterWidth;
                 shutterRight.requestLayout();
+            }
+        }
+
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+        protected void applyRotationTransformation(int width, int height, int unAppliedRotationDegrees) {
+            if (width == 0 || height == 0) {
+                return;
+            }
+
+            try {
+                Matrix matrix = new Matrix(exoVideoTextureView.getMatrix());
+                matrix.setRotate(unAppliedRotationDegrees, width / 2, height / 2);
+                exoVideoTextureView.setTransform(matrix);
+            } catch (Exception e) {
+                Log.e(TAG, "Error applying rotation transformation", e);
             }
         }
 
