@@ -120,7 +120,7 @@ public class VideoControlsLeanback extends VideoControls {
 
     @Override
     public void updateProgress(@IntRange(from = 0) long position, @IntRange(from = 0) long duration, @IntRange(from = 0, to = 100) int bufferPercent) {
-        progressBar.setSecondaryProgress((int) (progressBar.getMax() * ((float)bufferPercent / 100)));
+        progressBar.setSecondaryProgress((int) (progressBar.getMax() * ((float) bufferPercent / 100)));
         progressBar.setProgress((int) position);
         currentTime.setText(TimeFormatUtil.formatMs(position));
     }
@@ -287,6 +287,7 @@ public class VideoControlsLeanback extends VideoControls {
         //TODO: make sure these are correct... (views exist, and animation looks ok)
         textContainer.startAnimation(new BottomViewHideShowAnimation(textContainer, toVisible, CONTROL_VISIBILITY_ANIMATION_LENGTH));
         controlsContainer.startAnimation(new BottomViewHideShowAnimation(controlsContainer, toVisible, CONTROL_VISIBILITY_ANIMATION_LENGTH));
+        buttonsContainer.startAnimation(new BottomViewHideShowAnimation(controlsContainer, toVisible, CONTROL_VISIBILITY_ANIMATION_LENGTH));
 
         isVisible = toVisible;
         onVisibilityChanged();

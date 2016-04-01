@@ -69,6 +69,8 @@ public abstract class VideoControls extends RelativeLayout {
 
     protected ViewGroup controlsContainer;
     protected ViewGroup textContainer;
+    protected ViewGroup buttonsContainer;
+
 
     protected Drawable defaultPlayDrawable;
     protected Drawable defaultPauseDrawable;
@@ -135,6 +137,7 @@ public abstract class VideoControls extends RelativeLayout {
     /**
      * Performs the control visibility animation for showing or hiding
      * this view
+     *
      * @param toVisible True if the view should be visible at the end of the animation
      */
     protected abstract void animateVisibility(boolean toVisible);
@@ -208,6 +211,7 @@ public abstract class VideoControls extends RelativeLayout {
         loadingProgress.setVisibility(isLoading ? View.VISIBLE : View.INVISIBLE);
         controlsContainer.setVisibility(isLoading ? View.GONE : View.VISIBLE);
         textContainer.setVisibility(isLoading ? View.GONE : View.VISIBLE);
+        buttonsContainer.setVisibility(isLoading ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -524,6 +528,7 @@ public abstract class VideoControls extends RelativeLayout {
 
         controlsContainer = (ViewGroup) findViewById(R.id.exomedia_controls_interactive_container);
         textContainer = (ViewGroup) findViewById(R.id.exomedia_controls_text_container);
+        buttonsContainer = (ViewGroup) findViewById(R.id.exomedia_controls_buttons_container);
     }
 
     /**

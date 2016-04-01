@@ -214,7 +214,6 @@ public class AudioPlayerActivity extends AppCompatActivity implements PlaylistLi
         playPauseButton.setVisibility(View.VISIBLE);
         previousButton.setVisibility(View.VISIBLE);
         nextButton.setVisibility(View.VISIBLE );
-
         loadingBar.setVisibility(View.INVISIBLE);
     }
 

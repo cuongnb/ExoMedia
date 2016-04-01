@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
 import com.devbrackets.android.exomedia.R;
+import com.devbrackets.android.exomedia.ui.animation.CenterViewHideShowAnimation;
 import com.devbrackets.android.exomedia.util.TimeFormatUtil;
 import com.devbrackets.android.exomedia.ui.animation.BottomViewHideShowAnimation;
 import com.devbrackets.android.exomedia.ui.animation.TopViewHideShowAnimation;
@@ -182,6 +183,7 @@ public class VideoControlsMobile extends VideoControls {
 
         textContainer.startAnimation(new TopViewHideShowAnimation(textContainer, toVisible, CONTROL_VISIBILITY_ANIMATION_LENGTH));
         controlsContainer.startAnimation(new BottomViewHideShowAnimation(controlsContainer, toVisible, CONTROL_VISIBILITY_ANIMATION_LENGTH));
+        buttonsContainer.startAnimation(new CenterViewHideShowAnimation(buttonsContainer, toVisible, CONTROL_VISIBILITY_ANIMATION_LENGTH));
 
         isVisible = toVisible;
         onVisibilityChanged();
