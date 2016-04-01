@@ -67,7 +67,7 @@
             android:id="@+id/exomedia_controls_play_pause_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@drawable/exomedia_default_control_play_pause_background"
             android:minHeight="@dimen/exomedia_min_button_height"
             android:minWidth="@dimen/exomedia_min_button_height"
             android:src="@drawable/exomedia_ic_play_arrow_white"
