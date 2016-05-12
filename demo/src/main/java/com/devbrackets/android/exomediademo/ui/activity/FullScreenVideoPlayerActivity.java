@@ -3,11 +3,13 @@ package com.devbrackets.android.exomediademo.ui.activity;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.devbrackets.android.exomedia.listener.VideoControlsVisibilityListener;
 import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
 import com.devbrackets.android.exomedia.ui.widget.VideoControls;
+import com.devbrackets.android.exomediademo.R;
 
 /**
  * A simple example of making a fullscreen video player activity.
@@ -29,6 +31,9 @@ public class FullScreenVideoPlayerActivity extends VideoPlayerActivity {
         if (emVideoView.getVideoControls() != null) {
             emVideoView.getVideoControls().setVisibilityListener(new ControlsVisibilityListener());
         }
+        View extra = LayoutInflater.from(this).inflate(R.layout.test, null);
+        emVideoView.getVideoControls().addExtraView(extra);
+
     }
 
     @Override
